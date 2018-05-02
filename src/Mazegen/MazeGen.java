@@ -1,5 +1,3 @@
-package Mazegen;
-
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -27,11 +25,9 @@ public class MazeGen {
     private int trapChance;
     private boolean generateGoal = false;
 
-    //private ArrayList<Integer> pathX = new ArrayList<>();
-    //private ArrayList<Integer> pathY = new ArrayList<>();
     Random rng = new Random();
 
-    //level char matrix contains blocks ., paths and traps 't' and coins 'c'
+    //level char matrix contains blocks '#', paths and traps 't' and coins 'c'
     //starting point is denoted by 'S'
     //goal is marked by 'G'
     public MazeGen(int size, int paths, int recursionMax, int minBlocks, int minPathLength, long seed, int trapChance, int coinChance) {
@@ -231,15 +227,6 @@ public class MazeGen {
         for (int i = 0; i < rng.nextInt(5) + minBlocks; i++) {
             if (posX + dx < size - 1 && posX + dx > 0 && posY + dy < size - 1 && posY + dy > 0) {
 
-                //b = 2/(1+Math.exp(5*Math.sin(Math.pow(posX+posY,3))))-1;
-                //b = 2/(1+Math.exp(Math.pow(posX/100000, posY/100000)))-1;
-                //b = 5*Math.sin(Math.exp(posX*posY));
-                //b = 2/(1+Math.exp(5*Math.sin(Math.log(posX*posY))))-1;
-                //b = 2/(1+Math.exp(Math.toRadians(posX*posY*dx*dy)))-1;
-                //b = 2/(1+Math.exp(Math.sqrt(posX*posY*dx*dy)))-1;
-                //b = 2/(1+Math.exp(Math.tan(posX+posY+dx+dy)))-1;
-                //b = 2*(1000*Math.pow(Math.E,0.5*posY)-Math.floor(1000*Math.pow(Math.E,0.5*posY)))-1;
-                //b = 2*(100000*Math.sin(0.5*posX+posY)-Math.floor(100000*Math.sin(0.5*posX+posY)))-1;
                 if (recursionMax >= 90) {
                     b = 2 / (1 + Math.exp(1)) - 1;
                 } else {
@@ -376,25 +363,3 @@ class Point {
     }
 
 }
-/**
- * TODO: prep: generateTrainingLevel OR (15,120,90,8,10,5,14,9)
- *
- * very easy: cbrt & sqrt & tan(x) & toRadians
- *
- * 15 52 90 13 15 seed
- *
- *
- *
- * easy: 15 52 75 13 15 seed
- *
- *
- *
- *
- * medium: 24 7 75 3 15 seed
- *
- *
- *
- * hard: 32 15 75 5 15 seed 3 2
- *
- * very hard: 42 75 75 5 15 seed 3 1
- */
