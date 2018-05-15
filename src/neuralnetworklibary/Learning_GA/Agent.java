@@ -56,40 +56,42 @@ public class Agent implements Comparable<Agent> {
 
     public double[] scanSurroundingSquares(int deltaY[], int deltaX[], int inputNeurons) {
         double data[] = new double[inputNeurons];
-        int e = 0;
-        int yy = 0;
-        int xx = 0;
-        int d = 1000;
-        for (int j = 0; j < map.length; j++) {
-            for (int k = 0; k < map.length; k++) {
-                if (map[j][k] == 'c' && Math.abs(j - getX()) + Math.abs(k - getY()) < d) {
-                    d = Math.abs(j - getX()) + Math.abs(k - getY());
-                    yy = k;
-                    xx = j;
+        double scan[] = scanSquare(getY(), getX());
+        double scan2[] = scanSquare(getX(), getY());
+        data[0] = scan[0];
+        data[1] = scan[1];
+        data[2] = scan2[0];
+        data[3] = scan2[1];
+        int i = iterateDelta(deltaX, deltaY, data, 4, 'c');
+        iterateDelta(deltaX, deltaY, data, i, 't');
+        return data;
+    }
+
+    public double[] scanSquare(int x, int y) {
+        double scan[] = new double[2];
+        double mines = 1;
+        int coins = 0;
+        int notVisited = 0;
+        for (int i = x - 3; i <= x + 3; i++) {
+            if (i == x) {
+                scan[0] = coins *2 + notVisited;
+                mines = 1;
+                coins = 0;
+                notVisited = 0;
+                continue;
+            }
+            for (int j = y - 1; j <= y + 1 && i >= 0 && i < map.length && j >= 0 && j < map.length; j++) {
+                if (map[i][j] == 'c') {
+                    coins++;
+                } else if (map[i][j] == 't') {
+                    mines++;
+                } else if (explored[i][j] == 0) {
+                    notVisited++;
                 }
             }
         }
-        data[e] = yy;
-        data[e + 1] = xx;
-        data[e + 2] = getY();
-        data[e + 3] = getX();
-        //data[i] = getHealth() - 20;
-        /*for (int i = getX() - 5; i < getX() + 5; i++) {
-            int dd = 100;
-            for (int j = getY() - 5; j < getY() + 5; j++) {
-                if (i == getX() && j == getY()) {
-                    continue;
-                }
-                if (i >= 0 && j >= 0 && i < map.length && j < map.length) {
-                    if (map[i][j] == 't' && dd > (Math.abs(i - getX() + Math.abs(j - getY())))) {
-                        dd = (Math.abs(i - getX() + Math.abs(j - getY())));
-                    }
-                }
-            }
-            data[e] = d * 3;
-            e++;
-        }*/
-        return data;
+        scan[1] = coins*2 + notVisited;
+        return scan;
     }
 
     public double datafromSquare(int y, int x) {
@@ -100,7 +102,7 @@ public class Agent implements Comparable<Agent> {
     }
 
     public int iterateDelta(int deltaX[], int deltaY[], double data[], int i, char object) {
-        for (int e = 0; e < 4; i++, e++) {
+        for (int e = 0; e < 8; i++, e++) {
             insertData(deltaY[e], deltaX[e], data, i, e, object);
         }
         return i;
@@ -109,7 +111,7 @@ public class Agent implements Comparable<Agent> {
     public void insertData(int dy, int dx, double data[], int i, int e, char object) {
         if (getX() + dx >= 0 && getY() + dy >= 0 && getY() + dy < map[0].length && getX() + dx < map.length) {
             if (map[getX() + dx][getY() + dy] == object) {
-                data[i] = 1;
+                data[i] = 20;
             }
         }// else {
         //  data[i] = (double) '#' * 10;
@@ -205,7 +207,7 @@ public class Agent implements Comparable<Agent> {
         } else if (stay) {
             health -= 100;
         } else {
-            health -= 5;
+            health -= 2;
         }
     }
 

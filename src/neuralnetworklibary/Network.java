@@ -4,9 +4,9 @@ public class Network {
 
     private double weights[][];
     private double bias[][];
-    int inputNeurons = 4;
+    int inputNeurons = 20;
     int outputNeurons = 4;
-    int neurons[] = new int[]{6, outputNeurons};
+    int neurons[] = new int[]{40, outputNeurons};
 
     //Alustetaan muuttujat ja asetetaan verkolle satunnaiset painot.
     public Network() {

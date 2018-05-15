@@ -30,7 +30,7 @@ public class swing {
     JSlider slider;
     JSlider slider2;
     JPanel guiPanel;
-    private Population pop = new Population(1000);
+    private Population pop = new Population(2000);
     private MazeGen m;
     private boolean training = false;
     private int seed;
@@ -283,7 +283,7 @@ class Gui extends JPanel implements ActionListener {
     }
 
     public void setNopeus(int n) {
-        if (n == 0 && pop.getGeneration() >= 1000) {
+        if (n == 0 && pop.getGeneration() >= 500) {
             n = 1;
         }
         nopeus = n;
@@ -299,13 +299,13 @@ class Gui extends JPanel implements ActionListener {
 
     // Asettaa kuvat ja skaalaa ne oikean kokoisiksi
     private void asetaKuvat() {
-        iconPath = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/path.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconTrap = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/trap.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconAgent = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/agent.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconCoin = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/coin.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconWall = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/wall.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconStart = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/start.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
-        iconGoal = new ImageIcon(new ImageIcon(getClass().getResource("/simulation/images/goal.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconPath = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/path.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconTrap = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/trap.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconAgent = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/agent.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconCoin = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/coin.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconWall = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/wall.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconStart = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/start.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
+        iconGoal = new ImageIcon(new ImageIcon(getClass().getResource("/Simulation/images/goal.png")).getImage().getScaledInstance(pituus, pituus, Image.SCALE_DEFAULT));
     }
 
     // Getterit
@@ -363,7 +363,7 @@ class Gui extends JPanel implements ActionListener {
         if (pause) {
             return;
         }
-        if (e.getSource() == timer && pop.getGeneration() >= 1000) {
+        if (e.getSource() == timer && pop.getGeneration() >= 500) {
             //m.printLevel(); //printtaa labyrintin
             repaint();
         } else {
